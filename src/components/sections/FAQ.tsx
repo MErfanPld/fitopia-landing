@@ -7,8 +7,12 @@ import { cn } from "@/lib/utils";
 
 const faqs = [
   {
+    q: "آیا باید اپ را نصب کنم؟",
+    a: "خیر. فیتوپیا کاملاً تحت وب است. از طریق مرورگر موبایل یا دسکتاپ به آدرس اپلیکیشن وارد شوید.",
+  },
+  {
     q: "فیتوپیا چیست؟",
-    a: "فیتوپیا پلتفرم هوشمند کشف باشگاه، مقایسه اشتراک و مدیریت عضویت ورزشی است. همه باشگاه‌های شهر را در یک اپلیکیشن پیدا و خریداری می‌کنید.",
+    a: "فیتوپیا وب‌اپلیکیشن هوشمند کشف باشگاه، مقایسه اشتراک و مدیریت عضویت است. بدون نیاز به نصب از استور، از مرورگر وارد می‌شوید.",
   },
   {
     q: "آیا برای استفاده باید اشتراک بخرم؟",
@@ -32,11 +36,11 @@ export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="relative py-24 lg:py-32">
+    <section id="faq" className="relative py-20 sm:py-24 lg:py-32">
       <div className="container-narrow section-padding">
-        <div className="text-center mb-12">
+        <div className="text-center mb-10 sm:mb-12">
           <span className="text-[#FF6A00] text-sm font-semibold">سوالات متداول</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-black tracking-tight">
+          <h2 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight">
             پاسخ پرسش‌های شما
           </h2>
         </div>
@@ -55,7 +59,7 @@ export function FAQ() {
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}
-                  className="w-full flex items-center justify-between gap-4 px-5 py-4 text-right"
+                  className="w-full flex items-center justify-between gap-4 px-4 sm:px-5 py-3.5 sm:py-4 text-right"
                   aria-expanded={isOpen}
                 >
                   <span className="font-semibold text-sm sm:text-base text-white/90">
@@ -77,7 +81,7 @@ export function FAQ() {
                       transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="px-5 pb-5 text-sm text-white/50 leading-relaxed">
+                      <p className="px-4 sm:px-5 pb-4 sm:pb-5 text-sm text-white/50 leading-relaxed">
                         {item.a}
                       </p>
                     </motion.div>
