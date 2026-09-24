@@ -1,19 +1,21 @@
 import { Instagram, Twitter, Linkedin, Send } from "lucide-react";
+import Link from "next/link";
 
 const links = {
   about: [
-    { label: "درباره فیتوپیا", href: "#problem-solution" },
-    { label: "ویژگی‌ها", href: "#features" },
-    { label: "پلن‌ها", href: "#pricing" },
+    { label: "درباره فیتوپیا", href: "/#problem-solution" },
+    { label: "ویژگی‌ها", href: "/#features" },
+    { label: "پلن‌ها", href: "/#pricing" },
+    { label: "مقالات", href: "/blog" },
   ],
   support: [
     { label: "تماس با ما", href: "mailto:support@fitopia.app" },
-    { label: "سوالات متداول", href: "#faq" },
-    { label: "ثبت باشگاه", href: "#gym-owners" },
+    { label: "سوالات متداول", href: "/#faq" },
+    { label: "ثبت باشگاه", href: "/#gym-owners" },
   ],
   legal: [
-    { label: "قوانین و مقررات", href: "#" },
-    { label: "حریم خصوصی", href: "#" },
+    { label: "قوانین و مقررات", href: "/terms" },
+    { label: "حریم خصوصی", href: "/privacy" },
   ],
 };
 
@@ -23,12 +25,12 @@ export function Footer() {
       <div className="container-wide section-padding">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2.5 mb-4">
+            <Link href="/" className="flex items-center gap-2.5 mb-4">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FF6A00] to-[#FF8533] flex items-center justify-center">
                 <span className="text-xs font-black text-white">F</span>
               </div>
               <span className="text-base font-bold">فیتوپیا</span>
-            </div>
+            </Link>
             <p className="text-sm text-white/40 leading-relaxed max-w-[220px]">
               پلتفرم هوشمند کشف باشگاه و مدیریت عضویت ورزشی.
             </p>
@@ -58,9 +60,12 @@ export function Footer() {
             <ul className="space-y-2.5">
               {links.about.map((l) => (
                 <li key={l.label}>
-                  <a href={l.href} className="text-sm text-white/40 hover:text-white transition-colors">
+                  <Link
+                    href={l.href}
+                    className="text-sm text-white/40 hover:text-white transition-colors"
+                  >
                     {l.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -71,7 +76,10 @@ export function Footer() {
             <ul className="space-y-2.5">
               {links.support.map((l) => (
                 <li key={l.label}>
-                  <a href={l.href} className="text-sm text-white/40 hover:text-white transition-colors">
+                  <a
+                    href={l.href}
+                    className="text-sm text-white/40 hover:text-white transition-colors"
+                  >
                     {l.label}
                   </a>
                 </li>
@@ -84,9 +92,12 @@ export function Footer() {
             <ul className="space-y-2.5">
               {links.legal.map((l) => (
                 <li key={l.label}>
-                  <a href={l.href} className="text-sm text-white/40 hover:text-white transition-colors">
+                  <Link
+                    href={l.href}
+                    className="text-sm text-white/40 hover:text-white transition-colors"
+                  >
                     {l.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
