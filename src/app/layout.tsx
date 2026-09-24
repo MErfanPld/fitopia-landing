@@ -42,6 +42,13 @@ export const metadata: Metadata = {
     description: "جستجو، مقایسه، خرید اشتراک و شروع تمرین در چند ثانیه.",
   },
   robots: { index: true, follow: true },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
 };
 
 export const viewport: Viewport = {
