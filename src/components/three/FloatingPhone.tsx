@@ -69,7 +69,8 @@ function PhoneModel({ screenIndex = 0 }: { screenIndex?: number }) {
 }
 
 function Particles({ count = 60 }: { count?: number }) {
-  const points = useRef<THREE.Points>(null);
+  const pointsRef = useRef<THREE.Points>(null);
+
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
@@ -80,31 +81,26 @@ function Particles({ count = 60 }: { count?: number }) {
     return arr;
   }, [count]);
 
+  const pointsObj = useMemo(() => {
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    const material = new THREE.PointsMaterial({
+      size: 0.025,
+      color: "#FF6A00",
+      transparent: true,
+      opacity: 0.45,
+      sizeAttenuation: true,
+      depthWrite: false,
+    });
+    return new THREE.Points(geometry, material);
+  }, [positions]);
+
   useFrame((state) => {
-    if (!points.current) return;
-    points.current.rotation.y = state.clock.getElapsedTime() * 0.02;
+    if (!pointsRef.current) return;
+    pointsRef.current.rotation.y = state.clock.getElapsedTime() * 0.02;
   });
 
-  return (
-    <points ref={points}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={positions.length / 3}
-          array={positions}
-          itemSize={3}
-        />
-      </bufferGeometry>
-      <pointsMaterial
-        size={0.025}
-        color="#FF6A00"
-        transparent
-        opacity={0.45}
-        sizeAttenuation
-        depthWrite={false}
-      />
-    </points>
-  );
+  return <primitive ref={pointsRef} object={pointsObj} />;
 }
 
 export function FloatingPhoneScene({ screenIndex = 0 }: { screenIndex?: number }) {

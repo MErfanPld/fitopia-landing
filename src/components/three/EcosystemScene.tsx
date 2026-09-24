@@ -84,20 +84,22 @@ function CentralSphere() {
 }
 
 function OrbitRing() {
-  const geometry = useMemo(() => {
+  const line = useMemo(() => {
     const pts: THREE.Vector3[] = [];
     for (let i = 0; i <= 64; i++) {
       const a = (i / 64) * Math.PI * 2;
       pts.push(new THREE.Vector3(Math.cos(a) * 2.4, 0, Math.sin(a) * 2.4));
     }
-    return new THREE.BufferGeometry().setFromPoints(pts);
+    const geometry = new THREE.BufferGeometry().setFromPoints(pts);
+    const material = new THREE.LineBasicMaterial({
+      color: "#FF6A00",
+      transparent: true,
+      opacity: 0.25,
+    });
+    return new THREE.Line(geometry, material);
   }, []);
 
-  return (
-    <line geometry={geometry}>
-      <lineBasicMaterial color="#FF6A00" transparent opacity={0.25} />
-    </line>
-  );
+  return <primitive object={line} />;
 }
 
 export function EcosystemScene() {
