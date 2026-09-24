@@ -8,11 +8,12 @@ import { cn } from "@/lib/utils";
 import { LINKS } from "@/lib/links";
 
 const navLinks = [
-  { href: "#products", label: "محصولات" },
-  { href: "#features", label: "ویژگی‌ها" },
-  { href: "#tutorial", label: "آموزش" },
-  { href: "#pricing", label: "پلن‌ها" },
-  { href: "#faq", label: "سوالات" },
+  { href: "/#products", label: "محصولات" },
+  { href: "/#features", label: "ویژگی‌ها" },
+  { href: "/#tutorial", label: "آموزش" },
+  { href: "/#pricing", label: "پلن‌ها" },
+  { href: "/#faq", label: "سوالات" },
+  { href: "/blog", label: "مقالات" },
 ];
 
 export function Header() {
@@ -35,7 +36,7 @@ export function Header() {
       )}
     >
       <div className="container-wide section-padding flex items-center justify-between gap-3">
-        <a href="#" className="flex items-center gap-2.5 group shrink-0">
+        <a href="/" className="flex items-center gap-2.5 group shrink-0">
           <img
             src="/logo.svg"
             alt="فیتوپیا"
@@ -62,9 +63,13 @@ export function Header() {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() =>
-              document.getElementById("gym-owners")?.scrollIntoView({ behavior: "smooth" })
-            }
+            onClick={() => {
+              if (window.location.pathname === "/") {
+                document.getElementById("gym-owners")?.scrollIntoView({ behavior: "smooth" });
+              } else {
+                window.location.href = "/#gym-owners";
+              }
+            }}
           >
             ثبت باشگاه
           </Button>
