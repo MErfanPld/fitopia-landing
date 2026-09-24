@@ -1,12 +1,16 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
-import { ScrollStory } from "@/components/sections/ScrollStory";
+import { TrustBar } from "@/components/sections/TrustBar";
+import { ProblemSolution } from "@/components/sections/ProblemSolution";
 import { Features } from "@/components/sections/Features";
-import { WhyFitopia } from "@/components/sections/WhyFitopia";
-import { Statistics } from "@/components/sections/Statistics";
 import { AppPreview } from "@/components/sections/AppPreview";
+import { Statistics } from "@/components/sections/Statistics";
+import { Pricing } from "@/components/sections/Pricing";
 import { Testimonials } from "@/components/sections/Testimonials";
+import { GymOwners } from "@/components/sections/GymOwners";
+import { DownloadApp } from "@/components/sections/DownloadApp";
+import { FAQ } from "@/components/sections/FAQ";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 
 export default function HomePage() {
@@ -15,12 +19,16 @@ export default function HomePage() {
       <Header />
       <main>
         <Hero />
-        <ScrollStory />
+        <TrustBar />
+        <ProblemSolution />
         <Features />
-        <WhyFitopia />
-        <Statistics />
         <AppPreview />
+        <Statistics />
+        <Pricing />
         <Testimonials />
+        <GymOwners />
+        <DownloadApp />
+        <FAQ />
         <FinalCTA />
       </main>
       <Footer />
