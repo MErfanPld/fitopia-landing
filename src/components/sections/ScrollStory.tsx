@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PhoneFrame } from "@/components/ui/PhoneFrame";
@@ -32,8 +32,8 @@ const screens = [
 
 export function ScrollStory() {
   const sectionRef = useRef<HTMLElement>(null);
-  const phoneRef = useRef<HTMLDivElement>(null);
   const textRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia(
@@ -42,73 +42,54 @@ export function ScrollStory() {
     if (prefersReduced || !sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      textRefs.current.filter(Boolean).forEach((el) => {
+      textRefs.current.filter(Boolean).forEach((el, i) => {
         gsap.fromTo(
           el,
-          { opacity: 0, y: 60 },
+          { opacity: 0, y: 40 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.8,
-            ease: "power3.out",
+            duration: 0.6,
+            ease: "power2.out",
             scrollTrigger: {
               trigger: el,
-              start: "top 75%",
+              start: "top 80%",
               end: "top 40%",
               toggleActions: "play none none reverse",
+              onEnter: () => setActiveIndex(i),
+              onEnterBack: () => setActiveIndex(i),
             },
           }
         );
       });
-
-      if (phoneRef.current) {
-        gsap.to(phoneRef.current, {
-          y: -60,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: 1.2,
-          },
-        });
-      }
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-24 lg:py-40" id="story">
+    <section ref={sectionRef} className="relative py-24 lg:py-36" id="story">
       <div className="container-wide section-padding">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-12 items-start">
-          {/* Sticky phone showing progressive screens */}
-          <div className="hidden lg:block sticky top-28">
-            <div ref={phoneRef} className="flex flex-col gap-10">
-              {screens.map((s, i) => (
-                <div key={s.src} className="opacity-90">
-                  <PhoneFrame src={s.src} alt={s.title} scale={0.95} />
-                  <p className="mt-3 text-center text-xs text-white/30">
-                    {String(i + 1).padStart(2, "۰")} — {s.title}
-                  </p>
-                </div>
-              ))}
-            </div>
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div className="hidden lg:flex sticky top-28 justify-center">
+            <PhoneFrame
+              src={screens[activeIndex].src}
+              alt={screens[activeIndex].title}
+              scale={1.05}
+            />
           </div>
 
-          {/* Story cards */}
-          <div className="flex flex-col gap-28 lg:gap-40 lg:pt-16">
+          <div className="flex flex-col gap-24 lg:gap-32 lg:pt-8">
             {screens.map((screen, i) => (
               <div
-                key={i}
+                key={screen.src}
                 ref={(el) => {
                   textRefs.current[i] = el;
                 }}
                 className="opacity-0"
               >
-                {/* Mobile-only phone */}
-                <div className="lg:hidden mb-8 flex justify-center">
-                  <PhoneFrame src={screen.src} alt={screen.title} scale={0.9} />
+                <div className="lg:hidden mb-6 flex justify-center">
+                  <PhoneFrame src={screen.src} alt={screen.title} scale={0.85} />
                 </div>
                 <span className="text-[#FF6A00] text-sm font-semibold tracking-wide">
                   ۰{i + 1}
