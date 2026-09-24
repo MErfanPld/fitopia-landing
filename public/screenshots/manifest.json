@@ -1,0 +1,22 @@
+{
+  "generatedAt": "2026-09-24T13:22:43.790Z",
+  "screens": [
+    "welcome",
+    "login",
+    "register",
+    "offline",
+    "home",
+    "all-gyms",
+    "gym-map",
+    "gym-detail",
+    "profile",
+    "subscriptions",
+    "subscription-history",
+    "payment",
+    "tokens"
+  ],
+  "viewports": [
+    "desktop",
+    "mobile"
+  ]
+}
