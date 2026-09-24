@@ -1,16 +1,10 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { User, Building2, Dumbbell, ExternalLink, ArrowLeft } from "lucide-react";
+import { User, Building2, Dumbbell, ExternalLink, ArrowLeft, Search, GitCompare, CreditCard, Flame } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { LINKS } from "@/lib/links";
-import { useEffect, useState } from "react";
-
-const EcosystemScene = dynamic(
-  () => import("@/components/three/EcosystemScene").then((m) => m.EcosystemScene),
-  { ssr: false, loading: () => <div className="w-full h-full bg-white/[0.03] animate-pulse rounded-2xl" /> }
-);
+import { PhoneFrame } from "@/components/ui/PhoneFrame";
 
 const products = [
   {
@@ -48,19 +42,14 @@ const products = [
   },
 ];
 
+const journey = [
+  { icon: Search, label: "جستجو", src: "all-gyms-mobile.webp" },
+  { icon: GitCompare, label: "مقایسه", src: "gym-detail-mobile.webp" },
+  { icon: CreditCard, label: "خرید", src: "payment-mobile.webp" },
+  { icon: Flame, label: "تمرین", src: "home-mobile.webp" },
+];
+
 export function Products() {
-  const [show3d, setShow3d] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia(
-      "(min-width: 768px) and (prefers-reduced-motion: no-preference)"
-    );
-    const update = () => setShow3d(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
   return (
     <section id="products" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
@@ -133,22 +122,37 @@ export function Products() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-12 sm:mt-16 relative h-[240px] sm:h-[320px] lg:h-[380px] rounded-3xl overflow-hidden border border-white/[0.06] bg-[#0a0a10]"
+          className="mt-14 sm:mt-16"
         >
-          {show3d ? (
-            <EcosystemScene />
-          ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center">
-              <div className="w-16 h-16 rounded-full bg-[#FF6A00]/15 border border-[#FF6A00]/30 flex items-center justify-center">
-                <span className="text-2xl font-black text-[#FF6A00]">F</span>
-              </div>
-              <p className="text-sm text-white/40">اکوسیستم فیتوپیا — ورزشکار · باشگاه · مربی</p>
-            </div>
-          )}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#07070A] to-transparent" />
+          <p className="text-center text-sm text-white/40 mb-8">
+            مسیر کاربر در فیتوپیا — از جستجو تا تمرین
+          </p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {journey.map((step, i) => (
+              <motion.div
+                key={step.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.06 * i }}
+                className="flex flex-col items-center"
+              >
+                <div className="relative mb-3">
+                  <PhoneFrame src={step.src} alt={step.label} className="!w-[120px] sm:!w-[140px]" />
+                  <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-[#FF6A00] text-white text-xs font-bold flex items-center justify-center shadow-lg">
+                    {i + 1}
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 text-sm font-medium text-white/70">
+                  <step.icon size={14} className="text-[#FF6A00]" />
+                  {step.label}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>
