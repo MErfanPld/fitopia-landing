@@ -2,8 +2,10 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { TrustBar } from "@/components/sections/TrustBar";
+import { Products } from "@/components/sections/Products";
 import { ProblemSolution } from "@/components/sections/ProblemSolution";
 import { Features } from "@/components/sections/Features";
+import { Tutorial3D } from "@/components/sections/Tutorial3D";
 import { AppPreview } from "@/components/sections/AppPreview";
 import { Statistics } from "@/components/sections/Statistics";
 import { Pricing } from "@/components/sections/Pricing";
@@ -20,8 +22,10 @@ export default function HomePage() {
       <main>
         <Hero />
         <TrustBar />
+        <Products />
         <ProblemSolution />
         <Features />
+        <Tutorial3D />
         <AppPreview />
         <Statistics />
         <Pricing />
