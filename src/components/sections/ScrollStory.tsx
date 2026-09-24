@@ -3,32 +3,30 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import dynamic from "next/dynamic";
+import { PhoneFrame } from "@/components/ui/PhoneFrame";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const FloatingPhoneScene = dynamic(
-  () =>
-    import("@/components/three/FloatingPhone").then((m) => m.FloatingPhoneScene),
-  { ssr: false }
-);
 
 const screens = [
   {
     title: "صفحه جستجوی باشگاه",
     desc: "باشگاه‌های اطراف را روی نقشه یا لیست پیدا کنید. فیلتر هوشمند بر اساس فاصله، امتیاز و امکانات.",
+    src: "all-gyms-mobile.webp",
   },
   {
     title: "صفحه جزئیات باشگاه",
     desc: "گالری، قیمت‌ها، مربیان، امکانات و نظرات واقعی کاربران را در یک نگاه ببینید.",
+    src: "gym-detail-mobile.webp",
   },
   {
     title: "صفحه خرید اشتراک",
     desc: "پلن‌های مختلف را مقایسه کنید و در چند ثانیه اشتراک خود را فعال کنید.",
+    src: "payment-mobile.webp",
   },
   {
     title: "صفحه پروفایل ورزشی",
     desc: "پیشرفت، بلیت‌ها و باشگاه‌های منتخب خود را در یک داشبورد شخصی مدیریت کنید.",
+    src: "profile-mobile.webp",
   },
 ];
 
@@ -44,9 +42,7 @@ export function ScrollStory() {
     if (prefersReduced || !sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      const texts = textRefs.current.filter(Boolean);
-
-      texts.forEach((el) => {
+      textRefs.current.filter(Boolean).forEach((el) => {
         gsap.fromTo(
           el,
           { opacity: 0, y: 60 },
@@ -67,7 +63,7 @@ export function ScrollStory() {
 
       if (phoneRef.current) {
         gsap.to(phoneRef.current, {
-          y: -80,
+          y: -60,
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -83,19 +79,24 @@ export function ScrollStory() {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative py-24 lg:py-40"
-      id="story"
-    >
+    <section ref={sectionRef} className="relative py-24 lg:py-40" id="story">
       <div className="container-wide section-padding">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-12 items-start">
-          <div className="hidden lg:block sticky top-28 h-[520px]">
-            <div ref={phoneRef} className="w-full h-full relative">
-              <FloatingPhoneScene />
+          {/* Sticky phone showing progressive screens */}
+          <div className="hidden lg:block sticky top-28">
+            <div ref={phoneRef} className="flex flex-col gap-10">
+              {screens.map((s, i) => (
+                <div key={s.src} className="opacity-90">
+                  <PhoneFrame src={s.src} alt={s.title} scale={0.95} />
+                  <p className="mt-3 text-center text-xs text-white/30">
+                    {String(i + 1).padStart(2, "۰")} — {s.title}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
+          {/* Story cards */}
           <div className="flex flex-col gap-28 lg:gap-40 lg:pt-16">
             {screens.map((screen, i) => (
               <div
@@ -105,6 +106,10 @@ export function ScrollStory() {
                 }}
                 className="opacity-0"
               >
+                {/* Mobile-only phone */}
+                <div className="lg:hidden mb-8 flex justify-center">
+                  <PhoneFrame src={screen.src} alt={screen.title} scale={0.9} />
+                </div>
                 <span className="text-[#FF6A00] text-sm font-semibold tracking-wide">
                   ۰{i + 1}
                 </span>
