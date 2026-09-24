@@ -8,10 +8,10 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "#features", label: "ویژگی‌ها" },
-  { href: "#why", label: "چرا فیتوپیا" },
-  { href: "#stats", label: "آمار" },
   { href: "#preview", label: "پیش‌نمایش" },
-  { href: "#testimonials", label: "نظرات" },
+  { href: "#pricing", label: "پلن‌ها" },
+  { href: "#gym-owners", label: "صاحبان باشگاه" },
+  { href: "#faq", label: "سوالات" },
 ];
 
 export function Header() {
@@ -34,7 +34,6 @@ export function Header() {
       )}
     >
       <div className="container-wide section-padding flex items-center justify-between">
-        {/* Logo */}
         <a href="#" className="flex items-center gap-2.5 group">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#FF6A00] to-[#FF8533] flex items-center justify-center shadow-[0_0_20px_rgba(255,106,0,0.3)] group-hover:shadow-[0_0_28px_rgba(255,106,0,0.5)] transition-shadow">
             <span className="text-sm font-black text-white">F</span>
@@ -42,8 +41,7 @@ export function Header() {
           <span className="text-lg font-bold tracking-tight">فیتوپیا</span>
         </a>
 
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-7">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -55,15 +53,26 @@ export function Header() {
           ))}
         </nav>
 
-        {/* CTA */}
         <div className="hidden lg:flex items-center gap-3">
-          <Button variant="ghost" size="sm">
-            ورود
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() =>
+              document.getElementById("gym-owners")?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            ثبت باشگاه
           </Button>
-          <Button size="sm">دانلود اپلیکیشن</Button>
+          <Button
+            size="sm"
+            onClick={() =>
+              document.getElementById("download")?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            دانلود اپ
+          </Button>
         </div>
 
-        {/* Mobile toggle */}
         <button
           onClick={() => setOpen(!open)}
           className="lg:hidden p-2 text-white/80 hover:text-white"
@@ -73,7 +82,6 @@ export function Header() {
         </button>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -95,10 +103,10 @@ export function Header() {
               ))}
               <div className="flex flex-col gap-3 pt-2">
                 <Button variant="outline" size="md" className="w-full">
-                  ورود
+                  ثبت باشگاه
                 </Button>
                 <Button size="md" className="w-full">
-                  دانلود اپلیکیشن
+                  دانلود اپ
                 </Button>
               </div>
             </nav>
