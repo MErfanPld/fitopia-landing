@@ -21,39 +21,33 @@ export function AppPreview() {
     offset: ["start end", "end start"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["6%", "-42%"]);
-  const rotateY = useTransform(scrollYProgress, [0, 0.5, 1], [8, 0, -8]);
+  const x = useTransform(scrollYProgress, [0, 1], ["4%", "-48%"]);
 
   return (
-    <section id="preview" className="relative py-24 lg:py-32 overflow-hidden">
-      <div className="container-wide section-padding mb-12">
+    <section id="preview" className="relative py-20 sm:py-24 lg:py-32 overflow-hidden">
+      <div className="container-wide section-padding mb-8 sm:mb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center max-w-2xl mx-auto"
         >
-          <span className="text-[#FF6A00] text-sm font-semibold">
-            پیش‌نمایش اپلیکیشن
-          </span>
-          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight">
+          <span className="text-[#FF6A00] text-sm font-semibold">پیش‌نمایش اپلیکیشن</span>
+          <h2 className="mt-3 text-2xl sm:text-3xl lg:text-5xl font-black tracking-tight">
             تجربه‌ای که احساس می‌شود
           </h2>
-          <p className="mt-4 text-white/50 text-lg">
-            هر صفحه از اپلیکیشن واقعی فیتوپیا — بدون تکرار.
+          <p className="mt-4 text-white/50 text-base sm:text-lg">
+            هر صفحه از وب‌اپلیکیشن واقعی فیتوپیا
           </p>
         </motion.div>
       </div>
 
-      <div ref={containerRef} className="relative" style={{ perspective: 1200 }}>
-        <motion.div
-          style={{ x, rotateY }}
-          className="flex gap-8 sm:gap-10 px-[6vw]"
-        >
+      <div ref={containerRef} className="relative">
+        <motion.div style={{ x }} className="flex gap-5 sm:gap-8 md:gap-10 px-4 sm:px-[6vw]">
           {previews.map((p) => (
-            <div key={p.src} className="shrink-0 w-[230px] sm:w-[270px]">
-              <PhoneFrame src={p.src} alt={p.title} scale={1} />
-              <p className="mt-5 text-center text-sm text-white/50 font-medium">
+            <div key={p.src} className="shrink-0 w-[180px] sm:w-[230px] md:w-[270px]">
+              <PhoneFrame src={p.src} alt={p.title} scale={1} className="!max-w-full !w-full" />
+              <p className="mt-4 sm:mt-5 text-center text-xs sm:text-sm text-white/50 font-medium">
                 {p.title}
               </p>
             </div>

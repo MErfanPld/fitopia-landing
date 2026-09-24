@@ -2,15 +2,16 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import { LINKS } from "@/lib/links";
 
 const navLinks = [
+  { href: "#products", label: "محصولات" },
   { href: "#features", label: "ویژگی‌ها" },
-  { href: "#preview", label: "پیش‌نمایش" },
+  { href: "#tutorial", label: "آموزش" },
   { href: "#pricing", label: "پلن‌ها" },
-  { href: "#gym-owners", label: "صاحبان باشگاه" },
   { href: "#faq", label: "سوالات" },
 ];
 
@@ -29,24 +30,24 @@ export function Header() {
       className={cn(
         "fixed top-0 inset-x-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-[#07070A]/80 backdrop-blur-xl border-b border-white/5 py-3"
-          : "bg-transparent py-5"
+          ? "bg-[#07070A]/85 backdrop-blur-xl border-b border-white/5 py-2.5 sm:py-3"
+          : "bg-transparent py-4 sm:py-5"
       )}
     >
-      <div className="container-wide section-padding flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#FF6A00] to-[#FF8533] flex items-center justify-center shadow-[0_0_20px_rgba(255,106,0,0.3)] group-hover:shadow-[0_0_28px_rgba(255,106,0,0.5)] transition-shadow">
+      <div className="container-wide section-padding flex items-center justify-between gap-3">
+        <a href="#" className="flex items-center gap-2 group shrink-0">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#FF6A00] to-[#FF8533] flex items-center justify-center shadow-[0_0_20px_rgba(255,106,0,0.3)]">
             <span className="text-sm font-black text-white">F</span>
           </div>
-          <span className="text-lg font-bold tracking-tight">فیتوپیا</span>
+          <span className="text-base sm:text-lg font-bold tracking-tight">فیتوپیا</span>
         </a>
 
-        <nav className="hidden lg:flex items-center gap-7">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-7">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-white/60 hover:text-white transition-colors duration-200"
+              className="text-sm text-white/60 hover:text-white transition-colors"
             >
               {link.label}
             </a>
@@ -63,14 +64,12 @@ export function Header() {
           >
             ثبت باشگاه
           </Button>
-          <Button
-            size="sm"
-            onClick={() =>
-              document.getElementById("download")?.scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            دانلود اپ
-          </Button>
+          <a href={LINKS.app} target="_blank" rel="noopener noreferrer">
+            <Button size="sm" className="gap-1.5">
+              ورود به اپ
+              <ExternalLink size={14} />
+            </Button>
+          </a>
         </div>
 
         <button
@@ -90,24 +89,27 @@ export function Header() {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden overflow-hidden bg-[#07070A]/95 backdrop-blur-xl border-b border-white/5"
           >
-            <nav className="section-padding py-6 flex flex-col gap-4">
+            <nav className="section-padding py-5 flex flex-col gap-1">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="text-base text-white/70 hover:text-white py-2"
+                  className="text-base text-white/70 hover:text-white py-2.5"
                 >
                   {link.label}
                 </a>
               ))}
-              <div className="flex flex-col gap-3 pt-2">
-                <Button variant="outline" size="md" className="w-full">
+              <div className="flex flex-col gap-2.5 pt-3">
+                <Button variant="outline" size="md" className="w-full" onClick={() => setOpen(false)}>
                   ثبت باشگاه
                 </Button>
-                <Button size="md" className="w-full">
-                  دانلود اپ
-                </Button>
+                <a href={LINKS.app} target="_blank" rel="noopener noreferrer" className="w-full">
+                  <Button size="md" className="w-full gap-2">
+                    ورود به اپلیکیشن
+                    <ExternalLink size={16} />
+                  </Button>
+                </a>
               </div>
             </nav>
           </motion.div>
