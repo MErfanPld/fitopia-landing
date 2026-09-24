@@ -51,12 +51,12 @@ export function Tutorial3D() {
     <section id="tutorial" className="relative py-20 sm:py-24 lg:py-32">
       <div className="container-wide section-padding">
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
-          <span className="text-[#FF6A00] text-sm font-semibold">آموزش ویدیویی</span>
+          <span className="text-[#FF6A00] text-sm font-semibold">آموزش سریع</span>
           <h2 className="mt-3 text-2xl sm:text-3xl lg:text-5xl font-black tracking-tight">
-            راهنمای تعاملی سه‌بعدی
+            در چند دقیقه با اپ آشنا شوید
           </h2>
           <p className="mt-4 text-white/50 text-base sm:text-lg">
-            هر تب یک مرحله از مسیر استفاده از فیتوپیا را نشان می‌دهد.
+            با انتخاب هر بخش، صفحه واقعی اپ را ببینید و مسیر استفاده را یاد بگیرید.
           </p>
         </div>
 
@@ -111,7 +111,7 @@ export function Tutorial3D() {
                 </motion.div>
                 <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full glass-strong text-xs text-white/70">
                   <Play size={12} className="text-[#FF6A00] fill-[#FF6A00]" />
-                  پیش‌نمایش تعاملی
+                  نمای زنده اپ
                 </div>
               </motion.div>
             </AnimatePresence>
