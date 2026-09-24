@@ -2,14 +2,14 @@ import { Instagram, Twitter, Linkedin, Send } from "lucide-react";
 
 const links = {
   about: [
-    { label: "درباره فیتوپیا", href: "#" },
-    { label: "تیم ما", href: "#" },
-    { label: "فرصت‌های شغلی", href: "#" },
+    { label: "درباره فیتوپیا", href: "#problem-solution" },
+    { label: "ویژگی‌ها", href: "#features" },
+    { label: "پلن‌ها", href: "#pricing" },
   ],
   support: [
-    { label: "تماس با ما", href: "#" },
-    { label: "سوالات متداول", href: "#" },
-    { label: "پشتیبانی", href: "#" },
+    { label: "تماس با ما", href: "mailto:support@fitopia.app" },
+    { label: "سوالات متداول", href: "#faq" },
+    { label: "ثبت باشگاه", href: "#gym-owners" },
   ],
   legal: [
     { label: "قوانین و مقررات", href: "#" },
@@ -22,7 +22,6 @@ export function Footer() {
     <footer className="border-t border-white/5 pt-16 pb-10">
       <div className="container-wide section-padding">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
-          {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FF6A00] to-[#FF8533] flex items-center justify-center">
@@ -34,10 +33,18 @@ export function Footer() {
               پلتفرم هوشمند کشف باشگاه و مدیریت عضویت ورزشی.
             </p>
             <div className="flex gap-3 mt-5">
-              {[Instagram, Twitter, Linkedin, Send].map((Icon, i) => (
+              {[
+                { Icon: Instagram, href: "https://instagram.com", label: "اینستاگرام" },
+                { Icon: Twitter, href: "https://x.com", label: "توییتر" },
+                { Icon: Linkedin, href: "https://linkedin.com", label: "لینکدین" },
+                { Icon: Send, href: "https://t.me", label: "تلگرام" },
+              ].map(({ Icon, href, label }) => (
                 <a
-                  key={i}
-                  href="#"
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
                   className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/25 transition-colors"
                 >
                   <Icon size={16} />
@@ -51,10 +58,7 @@ export function Footer() {
             <ul className="space-y-2.5">
               {links.about.map((l) => (
                 <li key={l.label}>
-                  <a
-                    href={l.href}
-                    className="text-sm text-white/40 hover:text-white transition-colors"
-                  >
+                  <a href={l.href} className="text-sm text-white/40 hover:text-white transition-colors">
                     {l.label}
                   </a>
                 </li>
@@ -67,10 +71,7 @@ export function Footer() {
             <ul className="space-y-2.5">
               {links.support.map((l) => (
                 <li key={l.label}>
-                  <a
-                    href={l.href}
-                    className="text-sm text-white/40 hover:text-white transition-colors"
-                  >
+                  <a href={l.href} className="text-sm text-white/40 hover:text-white transition-colors">
                     {l.label}
                   </a>
                 </li>
@@ -83,10 +84,7 @@ export function Footer() {
             <ul className="space-y-2.5">
               {links.legal.map((l) => (
                 <li key={l.label}>
-                  <a
-                    href={l.href}
-                    className="text-sm text-white/40 hover:text-white transition-colors"
-                  >
+                  <a href={l.href} className="text-sm text-white/40 hover:text-white transition-colors">
                     {l.label}
                   </a>
                 </li>
