@@ -1,15 +1,41 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { PhoneFrame } from "@/components/ui/PhoneFrame";
-import { ArrowDown, Download, MapPin } from "lucide-react";
+import { ArrowDown, Download, Building2 } from "lucide-react";
+import { useEffect, useState } from "react";
+
+const FloatingPhoneScene = dynamic(
+  () =>
+    import("@/components/three/FloatingPhone").then((m) => m.FloatingPhoneScene),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center">
+        <div className="w-40 h-72 rounded-[2rem] bg-white/5 animate-pulse" />
+      </div>
+    ),
+  }
+);
 
 export function Hero() {
+  const [use3d, setUse3d] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px) and (prefers-reduced-motion: no-preference)");
+    const update = () => setUse3d(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
   return (
     <section className="relative min-h-dvh flex items-center justify-center overflow-hidden pt-20">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#FF6A00]/10 blur-[100px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] rounded-full bg-[#FF6A00]/10 blur-[110px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,106,0,0.06),transparent_55%)]" />
       </div>
 
       <div className="container-wide section-padding relative z-10 grid lg:grid-cols-2 gap-10 lg:gap-8 items-center py-14 lg:py-0">
@@ -50,13 +76,18 @@ export function Hero() {
             transition={{ duration: 0.55, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-wrap gap-3 pt-1"
           >
-            <Button size="xl" className="gap-2">
+            <Button size="xl" className="gap-2" onClick={() => document.getElementById("download")?.scrollIntoView({ behavior: "smooth" })}>
               <Download size={20} />
               دانلود اپلیکیشن
             </Button>
-            <Button variant="outline" size="xl" className="gap-2">
-              <MapPin size={20} />
-              مشاهده باشگاه‌ها
+            <Button
+              variant="outline"
+              size="xl"
+              className="gap-2"
+              onClick={() => document.getElementById("gym-owners")?.scrollIntoView({ behavior: "smooth" })}
+            >
+              <Building2 size={20} />
+              ثبت باشگاه
             </Button>
           </motion.div>
         </div>
@@ -65,20 +96,26 @@ export function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="relative flex justify-center order-1 lg:order-2"
+          className="relative flex justify-center order-1 lg:order-2 min-h-[380px] lg:min-h-[520px]"
         >
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <PhoneFrame
-              src="home-mobile.webp"
-              alt="صفحه اصلی فیتوپیا"
-              scale={1.1}
-              priority
-              className="drop-shadow-[0_30px_60px_rgba(255,106,0,0.12)]"
-            />
-          </motion.div>
+          {use3d ? (
+            <div className="absolute inset-0">
+              <FloatingPhoneScene />
+            </div>
+          ) : (
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <PhoneFrame
+                src="home-mobile.webp"
+                alt="صفحه اصلی فیتوپیا"
+                scale={1.1}
+                priority
+                className="drop-shadow-[0_30px_60px_rgba(255,106,0,0.12)]"
+              />
+            </motion.div>
+          )}
         </motion.div>
       </div>
 

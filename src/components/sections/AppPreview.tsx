@@ -6,10 +6,11 @@ import { PhoneFrame } from "@/components/ui/PhoneFrame";
 
 const previews = [
   { title: "خانه", src: "home-mobile.webp" },
+  { title: "جستجوی باشگاه", src: "all-gyms-mobile.webp" },
   { title: "جزئیات باشگاه", src: "gym-detail-mobile.webp" },
+  { title: "نقشه", src: "gym-map-mobile.webp" },
   { title: "پرداخت", src: "payment-mobile.webp" },
   { title: "پروفایل", src: "profile-mobile.webp" },
-  { title: "نقشه", src: "gym-map-mobile.webp" },
   { title: "بلیت‌ها", src: "tokens-mobile.webp" },
 ];
 
@@ -20,7 +21,8 @@ export function AppPreview() {
     offset: ["start end", "end start"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["8%", "-40%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["6%", "-42%"]);
+  const rotateY = useTransform(scrollYProgress, [0, 0.5, 1], [8, 0, -8]);
 
   return (
     <section id="preview" className="relative py-24 lg:py-32 overflow-hidden">
@@ -38,15 +40,18 @@ export function AppPreview() {
             تجربه‌ای که احساس می‌شود
           </h2>
           <p className="mt-4 text-white/50 text-lg">
-            رابط کاربری واقعی فیتوپیا — سریع، مینیمال و طراحی‌شده برای ورزشکاران.
+            هر صفحه از اپلیکیشن واقعی فیتوپیا — بدون تکرار.
           </p>
         </motion.div>
       </div>
 
-      <div ref={containerRef} className="relative">
-        <motion.div style={{ x }} className="flex gap-8 sm:gap-10 px-[8vw]">
+      <div ref={containerRef} className="relative" style={{ perspective: 1200 }}>
+        <motion.div
+          style={{ x, rotateY }}
+          className="flex gap-8 sm:gap-10 px-[6vw]"
+        >
           {previews.map((p) => (
-            <div key={p.title} className="shrink-0 w-[240px] sm:w-[280px]">
+            <div key={p.src} className="shrink-0 w-[230px] sm:w-[270px]">
               <PhoneFrame src={p.src} alt={p.title} scale={1} />
               <p className="mt-5 text-center text-sm text-white/50 font-medium">
                 {p.title}
