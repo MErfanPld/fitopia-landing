@@ -76,12 +76,13 @@ src/
 │   ├── layout/          # Header, Footer
 │   ├── sections/        # Hero, ScrollStory, Features, ...
 │   ├── three/           # FloatingPhone, EcosystemScene
-│   ├── ui/              # Button, LoadingScreen
+│   ├── ui/              # Button, LoadingScreen, PhoneFrame
 │   └── providers/       # SmoothScrollProvider
 ├── hooks/
 ├── lib/
 │   └── utils.ts
 public/
+  screenshots/           # Real app screenshots (WebP)
 ```
 
 ## Design System
@@ -111,6 +112,40 @@ Environment variables are not required for the static landing experience.
 - Heavy components are dynamically imported with `ssr: false`.
 - Lenis + GSAP respect `prefers-reduced-motion`.
 - Tailwind v4 + optimized package imports keep bundle lean.
+
+## Real App Screenshots
+
+The landing page uses **real screenshots** of the Fitopia React App inside device frames.
+
+### Generate / refresh screenshots
+
+1. Start the Fitopia React App:
+   ```bash
+   cd ../fitopia-react-app   # or your clone of MErfanPld/Fitopia-React-App
+   npm install
+   npm run dev               # http://localhost:3000
+   ```
+
+2. Provide auth tokens (for protected routes):
+   ```bash
+   # Option A: env vars
+   export FITOPIA_ACCESS_TOKEN="..."
+   export FITOPIA_REFRESH_TOKEN="..."
+
+   # Option B: scripts/.tokens.json
+   # { "access": "...", "refresh": "..." }
+   ```
+
+3. From the landing root:
+   ```bash
+   npm install               # installs playwright, sharp, tsx
+   npx playwright install chromium
+   npm run generate:screenshots
+   ```
+
+Screenshots are written to `public/screenshots/` as WebP (mobile + desktop).
+
+The `PhoneFrame` component and sections (Hero, ScrollStory, AppPreview) automatically use these files.
 
 ## License
 
