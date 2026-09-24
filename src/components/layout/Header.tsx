@@ -35,10 +35,14 @@ export function Header() {
       )}
     >
       <div className="container-wide section-padding flex items-center justify-between gap-3">
-        <a href="#" className="flex items-center gap-2 group shrink-0">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#FF6A00] to-[#FF8533] flex items-center justify-center shadow-[0_0_20px_rgba(255,106,0,0.3)]">
-            <span className="text-sm font-black text-white">F</span>
-          </div>
+        <a href="#" className="flex items-center gap-2.5 group shrink-0">
+          <img
+            src="/logo.svg"
+            alt="فیتوپیا"
+            width={36}
+            height={36}
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl shadow-[0_0_20px_rgba(255,106,0,0.25)] group-hover:shadow-[0_0_28px_rgba(255,106,0,0.4)] transition-shadow"
+          />
           <span className="text-base sm:text-lg font-bold tracking-tight">فیتوپیا</span>
         </a>
 
