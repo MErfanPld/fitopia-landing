@@ -1,22 +1,9 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { PhoneFrame } from "@/components/ui/PhoneFrame";
 import { ArrowDown, Download, MapPin } from "lucide-react";
-
-const FloatingPhoneScene = dynamic(
-  () =>
-    import("@/components/three/FloatingPhone").then((m) => m.FloatingPhoneScene),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-full flex items-center justify-center">
-        <div className="w-32 h-56 rounded-[2rem] bg-white/5 animate-pulse" />
-      </div>
-    ),
-  }
-);
 
 export function Hero() {
   return (
@@ -25,6 +12,28 @@ export function Hero() {
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#FF6A00]/10 blur-[120px]" />
         <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] rounded-full bg-[#FF6A00]/05 blur-[80px]" />
+        {/* Soft particles */}
+        <div className="absolute inset-0 opacity-30">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 rounded-full bg-[#FF6A00]"
+              style={{
+                left: `${10 + (i * 7) % 80}%`,
+                top: `${15 + (i * 11) % 70}%`,
+              }}
+              animate={{
+                opacity: [0.2, 0.7, 0.2],
+                scale: [1, 1.4, 1],
+              }}
+              transition={{
+                duration: 3 + (i % 3),
+                repeat: Infinity,
+                delay: i * 0.3,
+              }}
+            />
+          ))}
+        </div>
       </div>
 
       <div className="container-wide section-padding relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center py-16 lg:py-0">
@@ -77,14 +86,25 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* 3D Phone */}
+        {/* Real app phone */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative h-[420px] sm:h-[500px] lg:h-[600px] order-1 lg:order-2"
+          className="relative flex justify-center order-1 lg:order-2"
         >
-          <FloatingPhoneScene />
+          <motion.div
+            animate={{ y: [0, -12, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <PhoneFrame
+              src="home-mobile.webp"
+              alt="صفحه اصلی فیتوپیا"
+              scale={1.15}
+              priority
+              className="drop-shadow-[0_40px_80px_rgba(255,106,0,0.15)]"
+            />
+          </motion.div>
         </motion.div>
       </div>
 
